@@ -31,115 +31,164 @@ Publish the website in the given URL.
 
 ## PROGRAM :
 ```
-math.html
+DEVELOPED BY: SHRIKRISHNA V
+REG. NO.: 212223040198
+
+
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-<title>Area of Surface</title>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<style type="text/css">
-body {
-    background-color: rgb(205, 12, 176);
-}
-.edge {
-    width: 100%;
-    padding-top: 250px;
-    text-align: center;
-}
-.box {
-    display: inline-block;
-    border: thick dashed rgb(201, 176, 12);
-    width: 500px;
-    min-height: 300px;
-    font-size: 20px;
-    background-color: rgb(80, 17, 225);
-}
-.formelt {
-    color: black;
-    text-align: center;
-    margin-top: 7px;
-    margin-bottom: 6px;
-}
-h1 {
-    color: rgb(7, 203, 83);
-    padding-top: 20px;
-}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cylinder Surface Area Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: rgb(0, 0, 0);
+    }
+    #calculator {
+        text-align: center;
+        background-color: rgb(255, 0, 0);
+        padding: 30px;
+        border-radius: 10px;
+    }
+    form {
+        margin-bottom: 2px;
+    }
+    .input-container {
+        margin-bottom: 10px;
+    }
+    label {
+        display: flex;
+        margin-bottom: 10px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        margin-top: 10px;
+    }
+    input[type="number"] {
+        width: 200px;
+        padding: 8px;
+        border-color: #000000;
+        box-sizing: border-box;
+        border-radius: 100px;
+    }
+    button {
+        background-color: #000000;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    button:hover {
+        background-color: #ffffff;
+        color: #000000;
+    }
+    #result {
+        font-size: 18px;
+        font-weight: bold;
+        color: aliceblue;
+
+    }
+    .rd{
+        color: #ffffff;
+    }
+    .topic{
+        color: #ffffff;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    h3{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
 </style>
 </head>
-<h2><center>Gokul sachin k(212223220025)</center></h2>
 <body>
-<div class="edge">
-    <div class="box">
-        <h1>Surface Area of Right Cylinder</h1>
-        <form method="POST">
-            {% csrf_token %}
-            <div class="formelt">
-                Radius: <input type="text" name="radius" value="{{r}}">m<br/>
-            </div>
-            <div class="formelt">
-                Height: <input type="text" name="height" value="{{h}}">m<br/>
-            </div>
-            <div class="formelt">
-                <input type="submit" value="Calculate"><br/>
-            </div>
-            <div class="formelt">
-                Area: <input type="text" name="area" value="{{area}}">m<sup>2</sup><br/>
-            </div>
-        </form>
-    </div>
+
+<div id="calculator">
+    <h2 class="topic
+    ">Cylinder Surface Area Calculator</h2>
+    <h3>SHRIKRISHNA V (212223040198)</h3>
+    <form id="cylinderForm">
+        <div class="input-container">
+            <label for="radius" class="rd">Radius:</label>
+            <input type="number" id="radius" required>
+        </div>
+        <div class="input-container">
+            <label for="height" class="rd">Height:</label>
+            <input type="number" id="height" required>
+        </div>
+        <button type="submit">Calculate</button>
+    </form>
+
+    <div id="result">Surface Area: <span id="surfaceArea"></span></div>
 </div>
+
+<script>
+document.getElementById("cylinderForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var radius = parseFloat(document.getElementById("radius").value);
+    var height = parseFloat(document.getElementById("height").value);
+    var surfaceArea = 2 * Math.PI * radius * (radius + height);
+    document.getElementById("surfaceArea").innerText = surfaceArea.toFixed(2);
+});
+</script>
+
 </body>
 </html>
 
-hha.py
-from django.shortcuts import render
+```
+```
+Views.py
 
-def surfaceareaofrightcylinder(request):
+from django.shortcuts import render
+def surfacearea(request):
     context = {}
     context['area'] = "0"
     context['r'] = "0"
     context['h'] = "0"
-    
     if request.method == 'POST':
         print("POST method is used")
-        
         print('request.POST:', request.POST)
-        
         r = request.POST.get('radius', '0') 
         h = request.POST.get('height', '0') 
         print('radius =', r)
         print('height =', h)
-        
         area = 2 * 3.14 * int(r) * int(h) + 2*3.14*int(r)*int(r)
         context['area'] = area
         context['r'] = r
         context['h'] = h
         print('Area =', area)
     
-    return render(request, 'mathapp/math.html', context)
+    return render(request, 'mathapp/math.html',context)
+```
+```
+urls.py
 
-from django.py
 from django.contrib import admin
 from django.urls import path
 from mathapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('surfaceareaofrightcylinder/',views.surfaceareaofrightcylinder,name="surfaceareaofrightcylinder"),
-    path('',views.surfaceareaofrightcylinder,name="surfaceareaofrightcylinderroot")
+    path('surfacearea/',views.surfacearea,name="surfacearea"),
+    path('',views.surfacearea,name="surfcaearea")
 ]
 ```
 
-
 ## SERVER SIDE PROCESSING:
-![image](https://github.com/vksachin2018/MathServer/assets/149366019/9d062a25-8f8a-4959-a162-bf372a10f105)
-
+![image](https://github.com/Wkrish28/MathServer/assets/144295230/df8a8077-cfc4-47e4-b0d9-cf848dc7cb6c)
 
 
 ## HOMEPAGE:
+![image](https://github.com/vksachin2018/MathServer/assets/149366019/6eb944b6-660d-4a9e-bf66-ebcf735ab071)
 
-![image](https://github.com/vksachin2018/MathServer/assets/149366019/1b7bb3f9-b536-4ea2-b706-b561488d1745)
+
 
 ## RESULT:
 The program for performing server side processing is completed successfully.
