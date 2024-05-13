@@ -72,7 +72,7 @@ Publish the website in the given URL.
     <div class="edge">
         <div class="box">
             <h1>Surface Area of a Right Cylinder</h1>
-            <h3>Jai Gokul sachin k(212223220025)</h3>
+            <h3> Gokul sachin k(212223220025)</h3>
             <form method="POST">
                 {% csrf_token %}
                 <div class="formelt" >
